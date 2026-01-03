@@ -1,0 +1,11 @@
+{
+  "item.caelum.astral_ingot": "アストラルインゴット",
+  "item.caelum.astral_dust": "アストラルダスト",
+  "item.caelum.logic_chip": "論理回路チップ",
+  "block.caelum.astral_ore": "アストラル鉱石",
+  "item.caelum.raw_astral_ore": "アストラル原石",
+  "block.caelum.deepslate_astral_ore": "深層岩アストラル鉱石",
+  "block.caelum.stellar_furnace": "恒星炉",
+  "block.caelum.stellar_synthesizer": "星辰の注入器",
+  "creativetab.caelum_tab": "Caelum Industry"
+}

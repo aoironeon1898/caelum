@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "facing=north,lit=false": { "model": "caelum:block/stellar_synthesizer" },
+    "facing=east,lit=false":  { "model": "caelum:block/stellar_synthesizer", "y": 90 },
+    "facing=south,lit=false": { "model": "caelum:block/stellar_synthesizer", "y": 180 },
+    "facing=west,lit=false":  { "model": "caelum:block/stellar_synthesizer", "y": 270 },
+
+    "facing=north,lit=true":  { "model": "caelum:block/stellar_synthesizer_on" },
+    "facing=east,lit=true":   { "model": "caelum:block/stellar_synthesizer_on", "y": 90 },
+    "facing=south,lit=true":  { "model": "caelum:block/stellar_synthesizer_on", "y": 180 },
+    "facing=west,lit=true":   { "model": "caelum:block/stellar_synthesizer_on", "y": 270 }
+  }
+}

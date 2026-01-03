@@ -1,0 +1,16 @@
+{
+  "type": "caelum:stellar_infusing",
+  "ingredients": [
+    {
+      "item": "caelum:astral_dust"
+    },
+    {
+      "item": "minecraft:iron_ingot"
+    }
+  ],
+  "output": {
+    "item": "caelum:astral_ingot",
+    "count": 1
+  },
+  "process_time": 100
+}

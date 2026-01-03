@@ -1,0 +1,14 @@
+{
+  "type": "caelum:stellar_smelting",
+  "ingredients": [
+    {
+      "item": "caelum:raw_astral_ore"
+    }
+  ],
+  "output": {
+    "item": "caelum:astral_ingot",
+    "count": 1
+  },
+  "cookingtime": 60,
+  "tier": 1
+}

@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "caelum:block/stellar_furnace" },
+    "facing=south": { "model": "caelum:block/stellar_furnace", "y": 180 },
+    "facing=west":  { "model": "caelum:block/stellar_furnace", "y": 270 },
+    "facing=east":  { "model": "caelum:block/stellar_furnace", "y": 90 }
+  }
+}

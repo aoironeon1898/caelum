@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "caelum:raw_astral_ore"
+  },
+  "result": "caelum:astral_ingot",
+  "experience": 0.7,
+  "cookingtime": 800
+}

@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "III",
+    "I I",
+    "BFB"
+  ],
+  "key": {
+    "I": {
+      "item": "caelum:astral_ingot"
+    },
+    "B": {
+      "item": "minecraft:obsidian"
+    },
+    "F": {
+      "item": "minecraft:blast_furnace"
+    }
+  },
+  "result": {
+    "item": "caelum:stellar_furnace",
+    "count": 1
+  }
+}
