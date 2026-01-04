@@ -1,0 +1,15 @@
+{
+  "type": "caelum:stellar_crushing",
+  "ingredients": [
+    {
+      "item": "caelum:astral_ore",
+      "count": 1
+    }
+  ],
+  "output": {
+    "item": "caelum:astral_dust",
+    "count": 2
+  },
+  "process_time": 60,
+  "tier": 1
+}

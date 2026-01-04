@@ -23,15 +23,15 @@ public class ModTabs {
                         // これらは純粋なアイテムなので ModItems のままでOK
                         pOutput.accept(ModItems.RAW_ASTRAL_ORE.get());
                         pOutput.accept(ModItems.ASTRAL_INGOT.get());
-                        //pOutput.accept(ModItems.ASTRAL_DUST.get());
-                        //pOutput.accept(ModItems.LOGIC_CHIP.get());
+                        pOutput.accept(ModItems.ASTRAL_DUST.get());
+                        pOutput.accept(ModItems.LOGIC_CHIP.get());
 
                         // --- ブロック類 (ModBlocks から取得) ---
-                        // ★ ここを修正しました！ ModItems ではなく ModBlocks を使うように変更
                         pOutput.accept(ModBlocks.ASTRAL_ORE.get());
                         pOutput.accept(ModBlocks.DEEPSLATE_ASTRAL_ORE.get());
                         pOutput.accept(ModBlocks.STELLAR_FURNACE.get());
                         pOutput.accept(ModBlocks.STELLAR_SYNTHESIZER.get());
+                        pOutput.accept(ModBlocks.STELLAR_CRUSHER.get());
 
                     })
                     .build());

@@ -34,7 +34,7 @@ import java.util.Optional;
 
 public class StellarSynthesizerBlockEntity extends BlockEntity implements MenuProvider {
 
-    // ★ 機械のTier設定 (Tier 2機械を作る時はここを2にする)
+    // ★ Machine Tier (Set to 2 when making Tier 2 machines)
     private static final int MACHINE_TIER = 1;
 
     private static final int ENERGY_CAPACITY = 60000;
@@ -97,27 +97,28 @@ public class StellarSynthesizerBlockEntity extends BlockEntity implements MenuPr
             return;
         }
 
-        // デバッグ用 (必要ならコメントアウト解除)
-        // pEntity.energyStorage.receiveEnergy(ENERGY_CAPACITY, false);
+        // ★★★ DEBUG: Constantly refill energy to max ★★★
+        pEntity.energyStorage.setEnergy(pEntity.energyStorage.getMaxEnergyStored());
+        // ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
 
-        // 1. レシピの取得
+        // 1. Get Recipe
         Optional<StellarInfuserRecipe> recipe = getCurrentRecipe(pEntity);
 
-        // 2. レシピの有効性チェック
+        // 2. Recipe Validity Check
         boolean hasRecipe = false;
         if (recipe.isPresent()) {
             StellarInfuserRecipe r = recipe.get();
 
-            // ★ Tierチェック: レシピの要求Tierが機械より高かったら動かない
+            // ★ Tier Check: Only works if the machine tier is high enough for the recipe
             if (r.getTier() <= MACHINE_TIER) {
 
-                // アイテム数チェック
+                // Item Count Check
                 boolean hasEnoughItems =
                         pEntity.itemHandler.getStackInSlot(0).getCount() >= r.getCount(0) &&
                                 pEntity.itemHandler.getStackInSlot(1).getCount() >= r.getCount(1);
 
                 if (hasEnoughItems) {
-                    // 出力スロットチェック
+                    // Output Slot Check
                     hasRecipe = canInsertAmountIntoOutputSlot(pEntity.itemHandler) &&
                             canInsertItemIntoOutputSlot(pEntity.itemHandler, r.getResultItem(level.registryAccess()));
                 }
@@ -127,13 +128,15 @@ public class StellarSynthesizerBlockEntity extends BlockEntity implements MenuPr
         boolean hasEnergy = pEntity.energyStorage.getEnergyStored() >= ENERGY_PER_TICK;
         boolean isWorking = hasRecipe && hasEnergy;
 
-        // 3. ブロックの見た目更新
-        boolean currentLit = state.getValue(StellarSynthesizerBlock.LIT);
-        if (currentLit != isWorking) {
-            level.setBlock(pos, state.setValue(StellarSynthesizerBlock.LIT, isWorking), 3);
+        // 3. Block Appearance Update (Lit state)
+        if (state.hasProperty(StellarSynthesizerBlock.LIT)) {
+            boolean currentLit = state.getValue(StellarSynthesizerBlock.LIT);
+            if (currentLit != isWorking) {
+                level.setBlock(pos, state.setValue(StellarSynthesizerBlock.LIT, isWorking), 3);
+            }
         }
 
-        // 4. 稼働処理
+        // 4. Processing Logic
         if (isWorking) {
             pEntity.maxProgress = recipe.get().getProcessTime();
             pEntity.energyStorage.extractEnergy(ENERGY_PER_TICK, false);
@@ -144,8 +147,10 @@ public class StellarSynthesizerBlockEntity extends BlockEntity implements MenuPr
                 craftItem(pEntity);
             }
         } else {
-            pEntity.resetProgress();
-            setChanged(level, pos, state);
+            if (pEntity.progress > 0) {
+                pEntity.resetProgress();
+                setChanged(level, pos, state);
+            }
         }
     }
 
@@ -165,7 +170,7 @@ public class StellarSynthesizerBlockEntity extends BlockEntity implements MenuPr
     private static void craftItem(StellarSynthesizerBlockEntity entity) {
         Optional<StellarInfuserRecipe> recipe = getCurrentRecipe(entity);
 
-        // ★ Tierチェック
+        // ★ Tier Check
         if (recipe.isPresent() && recipe.get().getTier() <= MACHINE_TIER) {
             StellarInfuserRecipe r = recipe.get();
             ItemStack result = r.getResultItem(entity.level.registryAccess());
@@ -180,7 +185,7 @@ public class StellarSynthesizerBlockEntity extends BlockEntity implements MenuPr
                 output.grow(result.getCount());
             }
 
-            // アイテム消費 (指定個数分)
+            // Consume Items (based on recipe count)
             input1.shrink(r.getCount(0));
             input2.shrink(r.getCount(1));
 

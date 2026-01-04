@@ -33,8 +33,13 @@ public class StellarFurnaceMenu extends BaseMachineMenu {
         addPlayerHotbar(inv);
 
         this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
-            this.addSlot(new SlotItemHandler(handler, 0, 80, 11)); // Input
-            this.addSlot(new SlotItemHandler(handler, 1, 80, 59)); // Output
+            // 入力スロット
+            this.addSlot(new SlotItemHandler(handler, 0, 55, 33));
+            // 出力スロット
+            this.addSlot(new SlotItemHandler(handler, 1, 113, 33) {
+                @Override
+                public boolean mayPlace(ItemStack stack) { return false; }
+            });
         });
 
         addDataSlots(data);
@@ -61,7 +66,7 @@ public class StellarFurnaceMenu extends BaseMachineMenu {
     public int getScaledProgress() {
         int progress = this.data.get(0);
         int maxProgress = this.data.get(1);
-        int progressArrowSize = 24; // 矢印のピクセル幅
+        int progressArrowSize = 30; // 矢印のピクセル幅
 
         return maxProgress != 0 && progress != 0 ? progress * progressArrowSize / maxProgress : 0;
     }

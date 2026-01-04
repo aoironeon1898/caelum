@@ -1,6 +1,7 @@
 package com.aoironeon1898.caelum.common.registries;
 
 import com.aoironeon1898.caelum.Caelum;
+import com.aoironeon1898.caelum.common.menus.StellarCrusherMenu;
 import com.aoironeon1898.caelum.common.menus.StellarFurnaceMenu;
 import com.aoironeon1898.caelum.common.menus.StellarSynthesizerMenu;
 import net.minecraft.world.inventory.MenuType;
@@ -23,6 +24,10 @@ public class ModMenuTypes {
     public static final RegistryObject<MenuType<StellarSynthesizerMenu>> STELLAR_SYNTHESIZER_MENU =
             MENUS.register("stellar_synthesizer_menu",
                     () -> IForgeMenuType.create(StellarSynthesizerMenu::new));
+
+    public static final RegistryObject<MenuType<StellarCrusherMenu>> STELLAR_CRUSHER_MENU =
+            MENUS.register("stellar_crusher_menu",
+                    () -> IForgeMenuType.create(StellarCrusherMenu::new));
 
     public static void register(IEventBus eventBus) {
         MENUS.register(eventBus);

@@ -1,6 +1,7 @@
 package com.aoironeon1898.caelum.common.registries;
 
 import com.aoironeon1898.caelum.Caelum;
+import com.aoironeon1898.caelum.common.recipes.StellarCrusherRecipe;
 import com.aoironeon1898.caelum.common.recipes.StellarFurnaceRecipe;
 import com.aoironeon1898.caelum.common.recipes.StellarInfuserRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -33,6 +34,13 @@ public class ModRecipes {
     public static final RegistryObject<RecipeType<StellarInfuserRecipe>> STELLAR_INFUSING_TYPE =
             TYPES.register("stellar_infusing", () -> StellarInfuserRecipe.Type.INSTANCE);
 
+    public static final RegistryObject<RecipeSerializer<StellarCrusherRecipe>> STELLAR_CRUSHING_SERIALIZER =
+            SERIALIZERS.register("stellar_crushing", () -> StellarCrusherRecipe.Serializer.INSTANCE);
+
+    public static final RegistryObject<RecipeType<StellarCrusherRecipe>> STELLAR_CRUSHING_TYPE =
+            TYPES.register("stellar_crushing", () -> StellarCrusherRecipe.Type.INSTANCE);
+
+    
     public static void register(IEventBus eventBus) {
         SERIALIZERS.register(eventBus);
         TYPES.register(eventBus);

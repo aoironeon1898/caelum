@@ -57,13 +57,11 @@ public class StellarSynthesizerScreen extends BaseMachineScreen<StellarSynthesiz
 
         // エネルギーバー (座標: x+12, y+16, u176, v10, 幅8, 高さ52)
         this.renderEnergyBar(guiGraphics, TEXTURE,
-                12, 16, 176, 10, 8, 52,
-                menu.getEnergy(), menu.getMaxEnergy());
+                12, 16, 176, 8, 8, 52);
 
         // 矢印 (座標: x+76, y+37, u176, v0, 高さ8)
         // ※矢印の横幅は一般的なサイズ「24」を指定しています。画像に合わせて調整してください。
         this.renderProgressArrow(guiGraphics, TEXTURE,
-                76, 37, 176, 0, 30, 8,
-                menu.getProgress(), menu.getMaxProgress());
+                76, 37, 176, 0, 30, 8);
     }
 }

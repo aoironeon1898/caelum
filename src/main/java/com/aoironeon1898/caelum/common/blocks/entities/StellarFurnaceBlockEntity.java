@@ -1,7 +1,6 @@
 package com.aoironeon1898.caelum.common.blocks.entities;
 
 import com.aoironeon1898.caelum.common.blocks.StellarFurnaceBlock;
-
 import com.aoironeon1898.caelum.common.menus.StellarFurnaceMenu;
 import com.aoironeon1898.caelum.common.recipes.StellarFurnaceRecipe;
 import com.aoironeon1898.caelum.common.registries.ModBlockEntities;
@@ -35,11 +34,13 @@ import java.util.Optional;
 
 public class StellarFurnaceBlockEntity extends BlockEntity implements MenuProvider {
 
+    // 定数定義（管理しやすくするため上部にまとめています）
     private static final int MACHINE_TIER = 1;
     private static final int ENERGY_CAPACITY = 60000;
     private static final int ENERGY_TRANSFER = 200;
     private static final int ENERGY_PER_TICK = 40;
 
+    // アイテムハンドラー（スロット管理）
     private final ItemStackHandler itemHandler = new ItemStackHandler(2) {
         @Override
         protected void onContentsChanged(int slot) {
@@ -47,6 +48,7 @@ public class StellarFurnaceBlockEntity extends BlockEntity implements MenuProvid
         }
     };
 
+    // エネルギーハンドラー（電力管理）
     private final ModEnergyStorage energyStorage = new ModEnergyStorage(ENERGY_CAPACITY, ENERGY_TRANSFER) {
         @Override
         public void onEnergyChanged() {
@@ -151,16 +153,21 @@ public class StellarFurnaceBlockEntity extends BlockEntity implements MenuProvid
         Containers.dropContents(this.level, this.worldPosition, inventory);
     }
 
+    // ★★★ メイン処理 (Tick) ★★★
     public static void tick(Level level, BlockPos pos, BlockState state, StellarFurnaceBlockEntity pEntity) {
         if (level.isClientSide()) {
             return;
         }
 
+        // ▼▼▼▼▼▼▼▼▼▼ デバッグ用：常にエネルギー満タン ▼▼▼▼▼▼▼▼▼▼
+        pEntity.energyStorage.setEnergy(pEntity.energyStorage.getMaxEnergyStored());
+        // ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
+
         boolean hasRecipe = hasRecipe(pEntity);
         boolean hasEnergy = pEntity.energyStorage.getEnergyStored() >= ENERGY_PER_TICK;
         boolean isWorking = hasRecipe && hasEnergy;
 
-        // StellarFurnaceBlock.LIT を使って状態更新
+        // 稼働中ならブロックを光らせる（LITプロパティの更新）
         if (state.hasProperty(StellarFurnaceBlock.LIT)) {
             boolean currentLit = state.getValue(StellarFurnaceBlock.LIT);
             if (currentLit != isWorking) {
@@ -169,6 +176,7 @@ public class StellarFurnaceBlockEntity extends BlockEntity implements MenuProvid
         }
 
         if (isWorking) {
+            // エネルギー消費
             pEntity.energyStorage.extractEnergy(ENERGY_PER_TICK, false);
             pEntity.progress++;
             setChanged(level, pos, state);
@@ -177,6 +185,7 @@ public class StellarFurnaceBlockEntity extends BlockEntity implements MenuProvid
                 craftItem(pEntity);
             }
         } else {
+            // 途中停止したらリセット
             if (pEntity.progress > 0) {
                 pEntity.resetProgress();
                 setChanged(level, pos, state);
@@ -188,6 +197,7 @@ public class StellarFurnaceBlockEntity extends BlockEntity implements MenuProvid
         this.progress = 0;
     }
 
+    // レシピがあるかチェック
     private static boolean hasRecipe(StellarFurnaceBlockEntity entity) {
         Level level = entity.level;
         SimpleContainer inventory = new SimpleContainer(entity.itemHandler.getSlots());
@@ -206,12 +216,14 @@ public class StellarFurnaceBlockEntity extends BlockEntity implements MenuProvid
             return false;
         }
 
+        // 調理時間をレシピから取得してセット
         entity.maxProgress = recipe.get().getCookingTime();
 
         return canInsertAmountIntoOutputSlot(inventory) &&
                 canInsertItemIntoOutputSlot(inventory, recipe.get().getResultItem(level.registryAccess()));
     }
 
+    // アイテム作成処理
     private static void craftItem(StellarFurnaceBlockEntity entity) {
         Level level = entity.level;
         SimpleContainer inventory = new SimpleContainer(entity.itemHandler.getSlots());
@@ -246,11 +258,13 @@ public class StellarFurnaceBlockEntity extends BlockEntity implements MenuProvid
         return inventory.getItem(1).getMaxStackSize() > inventory.getItem(1).getCount();
     }
 
+    // カスタムエネルギーストレージ（変更検知付き）
     public static class ModEnergyStorage extends EnergyStorage {
         public ModEnergyStorage(int capacity, int maxTransfer) {
             super(capacity, maxTransfer, maxTransfer, 0);
         }
 
+        // エネルギーを直接セットするメソッド（デバッグや同期用）
         public void setEnergy(int energy) {
             this.energy = energy;
         }

@@ -1,6 +1,7 @@
 package com.aoironeon1898.caelum.client;
 
 import com.aoironeon1898.caelum.Caelum;
+import com.aoironeon1898.caelum.client.screens.StellarCrusherScreen;
 import com.aoironeon1898.caelum.client.screens.StellarFurnaceScreen;
 import com.aoironeon1898.caelum.client.screens.StellarSynthesizerScreen;
 import com.aoironeon1898.caelum.common.registries.ModMenuTypes;
@@ -21,6 +22,7 @@ public class ClientModEvents {
         event.enqueueWork(() -> {
             MenuScreens.register(ModMenuTypes.STELLAR_FURNACE_MENU.get(), StellarFurnaceScreen::new);
             MenuScreens.register(ModMenuTypes.STELLAR_SYNTHESIZER_MENU.get(), StellarSynthesizerScreen::new);
+            MenuScreens.register(ModMenuTypes.STELLAR_CRUSHER_MENU.get(), StellarCrusherScreen::new);
         });
     }
 }

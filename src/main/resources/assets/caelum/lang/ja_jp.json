@@ -6,6 +6,7 @@
   "item.caelum.raw_astral_ore": "アストラル原石",
   "block.caelum.deepslate_astral_ore": "深層岩アストラル鉱石",
   "block.caelum.stellar_furnace": "恒星炉",
-  "block.caelum.stellar_synthesizer": "星辰の注入器",
+  "block.caelum.stellar_synthesizer": "星辰の合成機",
+  "block.caelum.stellar_crusher": "星屑の粉砕機",
   "creativetab.caelum_tab": "Caelum Industry"
 }

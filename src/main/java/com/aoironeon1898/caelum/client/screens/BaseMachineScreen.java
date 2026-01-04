@@ -1,16 +1,14 @@
 package com.aoironeon1898.caelum.client.screens;
 
+import com.aoironeon1898.caelum.common.menus.BaseMachineMenu;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 
-// ★抽象クラス (abstract) として定義
-public abstract class BaseMachineScreen<T extends AbstractContainerMenu> extends AbstractContainerScreen<T> {
+public abstract class BaseMachineScreen<T extends BaseMachineMenu> extends AbstractContainerScreen<T> {
 
     public BaseMachineScreen(T menu, Inventory inventory, Component title) {
         super(menu, inventory, title);
@@ -19,8 +17,22 @@ public abstract class BaseMachineScreen<T extends AbstractContainerMenu> extends
     @Override
     protected void init() {
         super.init();
-        // タイトルを中央揃えにする計算
-        this.titleLabelX = (this.imageWidth - this.font.width(this.title)) / 2;
+        // ★ここを変更！
+        // 「座標を計算するメソッド」の結果を代入するようにします。
+        this.titleLabelX = getTitleLabelX();
+        this.titleLabelY = getTitleLabelY();
+    }
+
+    // ★新しいメソッド1：X座標（横）を決める
+    // デフォルト（何も書かない場合）は「中央揃え」を返します
+    protected int getTitleLabelX() {
+        return (this.imageWidth - this.font.width(this.title)) / 2;
+    }
+
+    // ★新しいメソッド2：Y座標（縦）を決める
+    // デフォルトは「6」（マイクラ標準の位置）
+    protected int getTitleLabelY() {
+        return 6;
     }
 
     @Override
@@ -30,21 +42,25 @@ public abstract class BaseMachineScreen<T extends AbstractContainerMenu> extends
         this.renderTooltip(graphics, mouseX, mouseY);
     }
 
-    // エネルギーバーを描画する便利メソッド
-    // texture: 画像ファイルの場所, x/y: 画面上の位置, u/v: 画像内の切り抜き位置, width/height: サイズ
-    protected void renderEnergyBar(GuiGraphics graphics, ResourceLocation texture, int x, int y, int u, int v, int width, int height, int energy, int maxEnergy) {
+    // ... (renderEnergyBar などの他のメソッドはそのまま) ...
+
+    protected void renderEnergyBar(GuiGraphics graphics, ResourceLocation texture, int x, int y, int u, int v, int width, int height) {
+        int energy = menu.getEnergy();
+        int maxEnergy = menu.getMaxEnergy();
+
         if (maxEnergy > 0) {
             int scaledHeight = (int)((float)energy / maxEnergy * height);
-            // 下から上に向かって増えるように描画位置を調整
             graphics.blit(texture, this.leftPos + x, this.topPos + y + (height - scaledHeight), u, v + (height - scaledHeight), width, scaledHeight);
         }
     }
 
-    // 矢印（進行度）を描画する便利メソッド
-    protected void renderProgressArrow(GuiGraphics graphics, ResourceLocation texture, int x, int y, int u, int v, int width, int height, int progress, int maxProgress) {
-        if (maxProgress > 0) {
+    protected void renderProgressArrow(GuiGraphics graphics, ResourceLocation texture, int x, int y, int u, int v, int width, int height) {
+        int progress = menu.getProgress();
+        int maxProgress = menu.getMaxProgress();
+
+        if (maxProgress > 0 && progress > 0) {
             int scaledWidth = progress * width / maxProgress;
-            graphics.blit(texture, this.leftPos + x, this.topPos + y, u, v, scaledWidth + 1, height);
+            graphics.blit(texture, this.leftPos + x, this.topPos + y, u, v, scaledWidth, height);
         }
     }
 }

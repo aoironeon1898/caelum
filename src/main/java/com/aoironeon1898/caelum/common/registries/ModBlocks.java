@@ -1,6 +1,7 @@
 package com.aoironeon1898.caelum.common.registries;
 
 import com.aoironeon1898.caelum.Caelum;
+import com.aoironeon1898.caelum.common.blocks.StellarCrusherBlock;
 import com.aoironeon1898.caelum.common.blocks.StellarFurnaceBlock;
 import com.aoironeon1898.caelum.common.blocks.StellarSynthesizerBlock;
 import net.minecraft.world.item.BlockItem;
@@ -47,7 +48,13 @@ public class ModBlocks {
                     .strength(1.5f)
                     .noOcclusion()
             ));
-
+    public static final RegistryObject<Block> STELLAR_CRUSHER = registerBlock("stellar_crusher",
+            () -> new StellarCrusherBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.METAL)
+                    .sound(SoundType.METAL)
+                    .strength(1.5f)
+                    .noOcclusion()
+            ));
     // --- 登録用のヘルパーメソッド ---
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
