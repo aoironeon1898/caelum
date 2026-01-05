@@ -1,9 +1,9 @@
 package com.aoironeon1898.caelum.common.registries;
 
 import com.aoironeon1898.caelum.Caelum;
-import com.aoironeon1898.caelum.common.recipes.StellarCrusherRecipe;
-import com.aoironeon1898.caelum.common.recipes.StellarFurnaceRecipe;
-import com.aoironeon1898.caelum.common.recipes.StellarInfuserRecipe;
+import com.aoironeon1898.caelum.common.content.machines.recipes.StellarCrusherRecipe;
+import com.aoironeon1898.caelum.common.content.machines.recipes.StellarFurnaceRecipe;
+import com.aoironeon1898.caelum.common.content.machines.recipes.StellarInfuserRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraftforge.eventbus.api.IEventBus;

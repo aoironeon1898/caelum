@@ -1,9 +1,11 @@
 package com.aoironeon1898.caelum.common.registries;
 
 import com.aoironeon1898.caelum.Caelum;
-import com.aoironeon1898.caelum.common.blocks.entities.StellarCrusherBlockEntity;
-import com.aoironeon1898.caelum.common.blocks.entities.StellarFurnaceBlockEntity;
-import com.aoironeon1898.caelum.common.blocks.entities.StellarSynthesizerBlockEntity; // ★追加
+// ★追加: 複合パイプのBlockEntityをインポート
+import com.aoironeon1898.caelum.common.content.logistics.entities.CompositePipeBlockEntity;
+import com.aoironeon1898.caelum.common.content.machines.entities.StellarCrusherBlockEntity;
+import com.aoironeon1898.caelum.common.content.machines.entities.StellarFurnaceBlockEntity;
+import com.aoironeon1898.caelum.common.content.machines.entities.StellarSynthesizerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -30,6 +32,15 @@ public class ModBlockEntities {
             BLOCK_ENTITIES.register("stellar_crusher_be",
                     () -> BlockEntityType.Builder.of(StellarCrusherBlockEntity::new,
                             ModBlocks.STELLAR_CRUSHER.get()).build(null));
+
+    // ★追加: 複合パイプの登録
+    // ModBlocks.COMPOSITE_PIPE と紐付けます
+    public static final RegistryObject<BlockEntityType<CompositePipeBlockEntity>> COMPOSITE_PIPE =
+            BLOCK_ENTITIES.register("composite_pipe",
+                    () -> BlockEntityType.Builder.of(
+                            CompositePipeBlockEntity::new,
+                            ModBlocks.COMPOSITE_PIPE.get()
+                    ).build(null));
 
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITIES.register(eventBus);

@@ -32,7 +32,7 @@ public class ModTabs {
                         pOutput.accept(ModBlocks.STELLAR_FURNACE.get());
                         pOutput.accept(ModBlocks.STELLAR_SYNTHESIZER.get());
                         pOutput.accept(ModBlocks.STELLAR_CRUSHER.get());
-
+                        pOutput.accept(ModBlocks.COMPOSITE_PIPE.get());
                     })
                     .build());
 

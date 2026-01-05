@@ -1,9 +1,11 @@
 package com.aoironeon1898.caelum.common.registries;
 
 import com.aoironeon1898.caelum.Caelum;
-import com.aoironeon1898.caelum.common.blocks.StellarCrusherBlock;
-import com.aoironeon1898.caelum.common.blocks.StellarFurnaceBlock;
-import com.aoironeon1898.caelum.common.blocks.StellarSynthesizerBlock;
+// ★追加: パイプのクラスをインポート
+import com.aoironeon1898.caelum.common.content.logistics.blocks.CompositePipeBlock;
+import com.aoironeon1898.caelum.common.content.machines.blocks.StellarCrusherBlock;
+import com.aoironeon1898.caelum.common.content.machines.blocks.StellarFurnaceBlock;
+import com.aoironeon1898.caelum.common.content.machines.blocks.StellarSynthesizerBlock;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -11,7 +13,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DropExperienceBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.MapColor; // 追加
+import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -34,7 +36,7 @@ public class ModBlocks {
                     .strength(4.5f).requiresCorrectToolForDrops()));
 
     public static final RegistryObject<Block> STELLAR_FURNACE = registerBlock("stellar_furnace",
-            () -> new StellarFurnaceBlock(BlockBehaviour.Properties.of() // ★ copyをやめて of() にする
+            () -> new StellarFurnaceBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.METAL)
                     .sound(SoundType.METAL)
                     .strength(1.5f)
@@ -48,6 +50,7 @@ public class ModBlocks {
                     .strength(1.5f)
                     .noOcclusion()
             ));
+
     public static final RegistryObject<Block> STELLAR_CRUSHER = registerBlock("stellar_crusher",
             () -> new StellarCrusherBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.METAL)
@@ -55,6 +58,14 @@ public class ModBlocks {
                     .strength(1.5f)
                     .noOcclusion()
             ));
+
+    // ★追加: 複合パイプ (Composite Pipe)
+    // 鉄ブロック並みの硬さで、透過ブロック(noOcclusion)として登録
+    public static final RegistryObject<Block> COMPOSITE_PIPE = registerBlock("composite_pipe",
+            () -> new CompositePipeBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .strength(3.0f)
+                    .noOcclusion()));
+
     // --- 登録用のヘルパーメソッド ---
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
@@ -64,7 +75,6 @@ public class ModBlocks {
     }
 
     private static <T extends Block> RegistryObject<Item> registerBlockItem(String name, RegistryObject<T> block) {
-        // ★ ModItems.ITEMS が null でないことを前提にしています
         return ModItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
     }
 
