@@ -1,6 +1,6 @@
 package com.aoironeon1898.caelum.common.content.machines.menus;
 
-import com.aoironeon1898.caelum.common.content.machines.entities.StellarCrusherBlockEntity;
+import com.aoironeon1898.caelum.common.content.machines.tile.StellarCrusherBlockEntity;
 import com.aoironeon1898.caelum.common.registries.ModBlocks;
 import com.aoironeon1898.caelum.common.registries.ModMenuTypes;
 import net.minecraft.network.FriendlyByteBuf;

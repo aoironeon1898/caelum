@@ -1,31 +1,29 @@
 {
   "multipart": [
-    {
-      "apply": { "model": "caelum:block/composite_pipe_core" }
-    },
+    { "apply": { "model": "caelum:block/composite_pipe_core" } },
 
-    { "when": { "north": "pipe" },   "apply": { "model": "caelum:block/composite_pipe_side" } },
-    { "when": { "north": "input" },  "apply": { "model": "caelum:block/composite_pipe_input" } },
-    { "when": { "north": "output" }, "apply": { "model": "caelum:block/composite_pipe_output" } },
+    { "when": { "mode_north": "normal" },  "apply": { "model": "caelum:block/composite_pipe_side", "uvlock": false } },
+    { "when": { "mode_north": "request" }, "apply": { "model": "caelum:block/composite_pipe_output", "uvlock": false } },
+    { "when": { "mode_north": "provide" }, "apply": { "model": "caelum:block/composite_pipe_input", "uvlock": false } },
 
-    { "when": { "east": "pipe" },    "apply": { "model": "caelum:block/composite_pipe_side", "y": 90 } },
-    { "when": { "east": "input" },   "apply": { "model": "caelum:block/composite_pipe_input", "y": 90 } },
-    { "when": { "east": "output" },  "apply": { "model": "caelum:block/composite_pipe_output", "y": 90 } },
+    { "when": { "mode_east": "normal" },  "apply": { "model": "caelum:block/composite_pipe_side", "y": 90, "uvlock": false } },
+    { "when": { "mode_east": "request" }, "apply": { "model": "caelum:block/composite_pipe_output", "y": 90, "uvlock": false } },
+    { "when": { "mode_east": "provide" }, "apply": { "model": "caelum:block/composite_pipe_input", "y": 90, "uvlock": false } },
 
-    { "when": { "south": "pipe" },   "apply": { "model": "caelum:block/composite_pipe_side", "y": 180 } },
-    { "when": { "south": "input" },  "apply": { "model": "caelum:block/composite_pipe_input", "y": 180 } },
-    { "when": { "south": "output" }, "apply": { "model": "caelum:block/composite_pipe_output", "y": 180 } },
+    { "when": { "mode_south": "normal" },  "apply": { "model": "caelum:block/composite_pipe_side", "y": 180, "uvlock": false } },
+    { "when": { "mode_south": "request" }, "apply": { "model": "caelum:block/composite_pipe_output", "y": 180, "uvlock": false } },
+    { "when": { "mode_south": "provide" }, "apply": { "model": "caelum:block/composite_pipe_input", "y": 180, "uvlock": false } },
 
-    { "when": { "west": "pipe" },    "apply": { "model": "caelum:block/composite_pipe_side", "y": 270 } },
-    { "when": { "west": "input" },   "apply": { "model": "caelum:block/composite_pipe_input", "y": 270 } },
-    { "when": { "west": "output" },  "apply": { "model": "caelum:block/composite_pipe_output", "y": 270 } },
+    { "when": { "mode_west": "normal" },  "apply": { "model": "caelum:block/composite_pipe_side", "y": 270, "uvlock": false } },
+    { "when": { "mode_west": "request" }, "apply": { "model": "caelum:block/composite_pipe_output", "y": 270, "uvlock": false } },
+    { "when": { "mode_west": "provide" }, "apply": { "model": "caelum:block/composite_pipe_input", "y": 270, "uvlock": false } },
 
-    { "when": { "up": "pipe" },      "apply": { "model": "caelum:block/composite_pipe_side", "x": 270 } },
-    { "when": { "up": "input" },     "apply": { "model": "caelum:block/composite_pipe_input", "x": 270 } },
-    { "when": { "up": "output" },    "apply": { "model": "caelum:block/composite_pipe_output", "x": 270 } },
+    { "when": { "mode_up": "normal" },  "apply": { "model": "caelum:block/composite_pipe_side", "x": 270, "uvlock": false } },
+    { "when": { "mode_up": "request" }, "apply": { "model": "caelum:block/composite_pipe_output", "x": 270, "uvlock": false } },
+    { "when": { "mode_up": "provide" }, "apply": { "model": "caelum:block/composite_pipe_input", "x": 270, "uvlock": false } },
 
-    { "when": { "down": "pipe" },    "apply": { "model": "caelum:block/composite_pipe_side", "x": 90 } },
-    { "when": { "down": "input" },   "apply": { "model": "caelum:block/composite_pipe_input", "x": 90 } },
-    { "when": { "down": "output" },  "apply": { "model": "caelum:block/composite_pipe_output", "x": 90 } }
+    { "when": { "mode_down": "normal" },  "apply": { "model": "caelum:block/composite_pipe_side", "x": 90, "uvlock": false } },
+    { "when": { "mode_down": "request" }, "apply": { "model": "caelum:block/composite_pipe_output", "x": 90, "uvlock": false } },
+    { "when": { "mode_down": "provide" }, "apply": { "model": "caelum:block/composite_pipe_input", "x": 90, "uvlock": false } }
   ]
 }

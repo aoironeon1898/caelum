@@ -1,6 +1,6 @@
 package com.aoironeon1898.caelum.common.content.machines.blocks;
 
-import com.aoironeon1898.caelum.common.content.machines.entities.StellarFurnaceBlockEntity;
+import com.aoironeon1898.caelum.common.content.machines.tile.StellarFurnaceBlockEntity;
 import com.aoironeon1898.caelum.common.registries.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

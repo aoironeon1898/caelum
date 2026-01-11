@@ -1,11 +1,15 @@
 package com.aoironeon1898.caelum.common.registries;
 
 import com.aoironeon1898.caelum.Caelum;
+import com.aoironeon1898.caelum.common.content.tools.WrenchItem;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import com.aoironeon1898.caelum.common.registries.ModBlocks;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
 
 public class ModItems {
     // レジストリ（台帳）の作成
@@ -29,6 +33,12 @@ public class ModItems {
     // 4. アストラル原石（ブロックではなくアイテムなのでここに書く）
     public static final RegistryObject<Item> RAW_ASTRAL_ORE = ITEMS.register("raw_astral_ore",
             () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> COMPOSITE_PIPE = ITEMS.register("composite_pipe",
+            () -> new BlockItem(ModBlocks.COMPOSITE_PIPE.get(), new Item.Properties()));
+
+    public static final RegistryObject<Item> CAELUM_WRENCH = ITEMS.register("caelum_wrench",
+            () -> new WrenchItem(new Item.Properties().stacksTo(1)));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

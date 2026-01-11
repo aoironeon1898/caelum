@@ -18,21 +18,26 @@ public class ModTabs {
                     .icon(() -> new ItemStack(ModItems.ASTRAL_INGOT.get()))
                     .title(Component.translatable("creativetab.caelum_tab"))
                     .displayItems((pParameters, pOutput) -> {
-
-                        // --- アイテム類 (ModItems から取得) ---
-                        // これらは純粋なアイテムなので ModItems のままでOK
+                        // 1. Resources (素材)
                         pOutput.accept(ModItems.RAW_ASTRAL_ORE.get());
                         pOutput.accept(ModItems.ASTRAL_INGOT.get());
                         pOutput.accept(ModItems.ASTRAL_DUST.get());
                         pOutput.accept(ModItems.LOGIC_CHIP.get());
 
-                        // --- ブロック類 (ModBlocks から取得) ---
+                        // 2. Blocks (自然生成ブロック)
                         pOutput.accept(ModBlocks.ASTRAL_ORE.get());
                         pOutput.accept(ModBlocks.DEEPSLATE_ASTRAL_ORE.get());
+
+                        // 3. Machines (機械)
                         pOutput.accept(ModBlocks.STELLAR_FURNACE.get());
-                        pOutput.accept(ModBlocks.STELLAR_SYNTHESIZER.get());
                         pOutput.accept(ModBlocks.STELLAR_CRUSHER.get());
+                        pOutput.accept(ModBlocks.STELLAR_SYNTHESIZER.get());
+
+                        // 4. Logistics (物流)
                         pOutput.accept(ModBlocks.COMPOSITE_PIPE.get());
+
+                        //5. tools
+                        pOutput.accept(ModItems.CAELUM_WRENCH.get());
                     })
                     .build());
 

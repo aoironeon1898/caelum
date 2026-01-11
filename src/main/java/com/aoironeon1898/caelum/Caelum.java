@@ -1,6 +1,5 @@
 package com.aoironeon1898.caelum;
 
-import com.aoironeon1898.caelum.common.network.ModMessages; // ★ここ重要
 import com.aoironeon1898.caelum.common.registries.*;
 import com.mojang.logging.LogUtils;
 import net.minecraftforge.common.MinecraftForge;
@@ -11,28 +10,26 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
 
-@Mod(Caelum.MODID) // ここで MODID を使っています
+@Mod(Caelum.MODID)
 public class Caelum {
-    // ★修正: 変数名を 'MOD_ID' から 'MODID' に変更しました
-    // これで ClientModEvents からのエラーが消えます
     public static final String MODID = "caelum";
-
     private static final Logger LOGGER = LogUtils.getLogger();
 
-    public Caelum() {
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+    // ★ 修正ポイント: 引数に context を受け取るように変更
+    // これを「コンストラクタ インジェクション（依存性の注入）」と呼びます
+    public Caelum(FMLJavaModLoadingContext context) {
+        // .get() を使わず、渡された context からバスを取り出す
+        IEventBus modEventBus = context.getModEventBus();
 
-        // --- レジストリ登録 ---
+        // ★ 各種登録処理（レジストリ）
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
         ModBlockEntities.register(modEventBus);
         ModMenuTypes.register(modEventBus);
+        ModRecipes.register(modEventBus);
+        ModTabs.register(modEventBus);
 
-        // --- ★重要: ネットワークの登録 ---
-        // PacketHandler ではなく、Screen側で使っている ModMessages を登録します
-        ModMessages.register();
-
-        // --- イベントリスナー ---
+        // ★ イベントリスナーの登録
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::addCreative);
 
@@ -40,10 +37,11 @@ public class Caelum {
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
-        // 共通セットアップ
+        // 共通のセットアップ処理
+        com.aoironeon1898.caelum.common.network.ModMessages.register();
     }
 
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
-        // クリエイティブタブ
+        // クリエイティブタブへの追加処理
     }
 }

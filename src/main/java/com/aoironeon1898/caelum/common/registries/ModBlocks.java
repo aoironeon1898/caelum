@@ -1,11 +1,10 @@
 package com.aoironeon1898.caelum.common.registries;
 
 import com.aoironeon1898.caelum.Caelum;
-// ★追加: パイプのクラスをインポート
-import com.aoironeon1898.caelum.common.content.logistics.blocks.CompositePipeBlock;
 import com.aoironeon1898.caelum.common.content.machines.blocks.StellarCrusherBlock;
 import com.aoironeon1898.caelum.common.content.machines.blocks.StellarFurnaceBlock;
 import com.aoironeon1898.caelum.common.content.machines.blocks.StellarSynthesizerBlock;
+import com.aoironeon1898.caelum.common.content.logistics.blocks.CompositePipeBlock; // ★追加
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -25,7 +24,9 @@ public class ModBlocks {
     public static final DeferredRegister<Block> BLOCKS =
             DeferredRegister.create(ForgeRegistries.BLOCKS, Caelum.MODID);
 
-    // --- ブロックの登録 ---
+    // =================================================================
+    // Section: World Gen (鉱石など)
+    // =================================================================
 
     public static final RegistryObject<Block> ASTRAL_ORE = registerBlock("astral_ore",
             () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE)
@@ -35,38 +36,41 @@ public class ModBlocks {
             () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE)
                     .strength(4.5f).requiresCorrectToolForDrops()));
 
+    // =================================================================
+    // Section: Machines (加工機械)
+    // =================================================================
+
     public static final RegistryObject<Block> STELLAR_FURNACE = registerBlock("stellar_furnace",
             () -> new StellarFurnaceBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.METAL)
                     .sound(SoundType.METAL)
-                    .strength(1.5f)
-                    .noOcclusion()
-            ));
+                    .strength(3.5f)
+                    .noOcclusion()));
 
     public static final RegistryObject<Block> STELLAR_SYNTHESIZER = registerBlock("stellar_synthesizer",
             () -> new StellarSynthesizerBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.METAL)
                     .sound(SoundType.METAL)
-                    .strength(1.5f)
-                    .noOcclusion()
-            ));
+                    .strength(3.5f)
+                    .noOcclusion()));
 
     public static final RegistryObject<Block> STELLAR_CRUSHER = registerBlock("stellar_crusher",
             () -> new StellarCrusherBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.METAL)
                     .sound(SoundType.METAL)
-                    .strength(1.5f)
-                    .noOcclusion()
-            ));
-
-    // ★追加: 複合パイプ (Composite Pipe)
-    // 鉄ブロック並みの硬さで、透過ブロック(noOcclusion)として登録
-    public static final RegistryObject<Block> COMPOSITE_PIPE = registerBlock("composite_pipe",
-            () -> new CompositePipeBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
-                    .strength(3.0f)
+                    .strength(3.5f)
                     .noOcclusion()));
 
-    // --- 登録用のヘルパーメソッド ---
+    // =================================================================
+    // Section: Logistics (物流システム)
+    // =================================================================
+
+    public static final RegistryObject<Block> COMPOSITE_PIPE = BLOCKS.register("composite_pipe",
+            () -> new CompositePipeBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion()));
+
+    // =================================================================
+    // Internal Helper Methods
+    // =================================================================
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);

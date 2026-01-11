@@ -1,4 +1,4 @@
-package com.aoironeon1898.caelum.common.content.machines.entities;
+package com.aoironeon1898.caelum.common.content.machines.tile;
 
 import com.aoironeon1898.caelum.common.content.machines.blocks.StellarFurnaceBlock;
 import com.aoironeon1898.caelum.common.content.machines.menus.StellarFurnaceMenu;

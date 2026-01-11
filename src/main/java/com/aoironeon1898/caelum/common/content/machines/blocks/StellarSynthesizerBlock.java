@@ -1,6 +1,6 @@
 package com.aoironeon1898.caelum.common.content.machines.blocks;
 
-import com.aoironeon1898.caelum.common.content.machines.entities.StellarSynthesizerBlockEntity;
+import com.aoironeon1898.caelum.common.content.machines.tile.StellarSynthesizerBlockEntity;
 import com.aoironeon1898.caelum.common.registries.ModBlockEntities; // ★追加
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

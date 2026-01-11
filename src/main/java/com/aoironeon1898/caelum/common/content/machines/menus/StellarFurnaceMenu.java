@@ -1,6 +1,6 @@
 package com.aoironeon1898.caelum.common.content.machines.menus;
 
-import com.aoironeon1898.caelum.common.content.machines.entities.StellarFurnaceBlockEntity;
+import com.aoironeon1898.caelum.common.content.machines.tile.StellarFurnaceBlockEntity;
 import com.aoironeon1898.caelum.common.registries.ModBlocks;
 import com.aoironeon1898.caelum.common.registries.ModMenuTypes;
 import net.minecraft.network.FriendlyByteBuf;
