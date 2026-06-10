@@ -157,10 +157,7 @@ public class StellarCrusherBlockEntity extends BlockEntity implements MenuProvid
             return;
         }
 
-        // ★★★ デバッグ用：常にエネルギーをMAXにする ★★★
-        pEntity.energyStorage.setEnergy(pEntity.energyStorage.getMaxEnergyStored());
-
-        if (hasRecipe(pEntity)) {
+        if (hasRecipe(pEntity) && pEntity.energyStorage.getEnergyStored() >= ENERGY_PER_TICK) {
             pEntity.energyStorage.extractEnergy(ENERGY_PER_TICK, false);
             pEntity.progress++;
             setChanged(level, pos, state);
