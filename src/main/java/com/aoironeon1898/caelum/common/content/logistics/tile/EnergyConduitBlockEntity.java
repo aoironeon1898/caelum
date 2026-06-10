@@ -24,8 +24,9 @@ import org.jetbrains.annotations.Nullable;
  */
 public class EnergyConduitBlockEntity extends BlockEntity {
 
-    private static final int BUFFER_CAPACITY = 1000;
-    private static final int TRANSFER_RATE = 200;
+    // 転送800/t は燃焼セルの出力(800)と同等。バッファ4000で短いリレー遅延を吸収。
+    private static final int BUFFER_CAPACITY = 4000;
+    private static final int TRANSFER_RATE = 800;
 
     private final EnergyStorage buffer = new EnergyStorage(BUFFER_CAPACITY, TRANSFER_RATE, TRANSFER_RATE) {
         @Override

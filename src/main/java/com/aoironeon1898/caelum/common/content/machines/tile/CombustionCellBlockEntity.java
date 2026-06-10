@@ -33,9 +33,11 @@ import org.jetbrains.annotations.Nullable;
  */
 public class CombustionCellBlockEntity extends BlockEntity {
 
-    private static final int ENERGY_CAPACITY = 50_000;
-    private static final int ENERGY_TRANSFER = 200;
-    private static final int ENERGY_PER_TICK = 20;
+    // 発電 80 FE/t = 機械2台(40FE)分、またはSynthesizer(60FE)1台＋余剰。
+    // 容量10万で複数機械の供給ハブとして機能。出力800で4台同時供給可。
+    private static final int ENERGY_CAPACITY = 100_000;
+    private static final int ENERGY_TRANSFER = 800;
+    private static final int ENERGY_PER_TICK = 80;
 
     private final ItemStackHandler fuelInventory = new ItemStackHandler(1) {
         @Override
@@ -60,14 +62,31 @@ public class CombustionCellBlockEntity extends BlockEntity {
         @Override public boolean isItemValid(int slot, @NotNull ItemStack stack) { return fuelInventory.isItemValid(slot, stack); }
     };
 
-    private final EnergyStorage energyStorage = new EnergyStorage(ENERGY_CAPACITY, 0, ENERGY_TRANSFER) {
+    // 発電専用ストレージ：外部からの受電は拒否(maxReceive=0)、出力のみ許可。
+    // 発電は generate() で内部energyを直接増やす（receiveEnergyはcanReceive=falseで常に0を返すため）。
+    private final GeneratorEnergyStorage energyStorage = new GeneratorEnergyStorage(ENERGY_CAPACITY, ENERGY_TRANSFER);
+
+    public class GeneratorEnergyStorage extends EnergyStorage {
+        public GeneratorEnergyStorage(int capacity, int maxExtract) {
+            super(capacity, 0, maxExtract, 0);
+        }
+        /** 発電：内部バッファを直接増やす。受入れた量を返す。 */
+        public int generate(int amount) {
+            int accepted = Math.min(amount, capacity - energy);
+            if (accepted > 0) {
+                energy += accepted;
+                setChanged();
+            }
+            return accepted;
+        }
+        public void setEnergy(int e) { this.energy = Math.max(0, Math.min(capacity, e)); }
         @Override
         public int extractEnergy(int maxExtract, boolean simulate) {
             int r = super.extractEnergy(maxExtract, simulate);
             if (r > 0 && !simulate) setChanged();
             return r;
         }
-    };
+    }
 
     private LazyOptional<IItemHandler> fuelCap = LazyOptional.of(() -> topInsertOnly);
     private LazyOptional<IEnergyStorage> energyCap = LazyOptional.of(() -> energyStorage);
@@ -84,9 +103,8 @@ public class CombustionCellBlockEntity extends BlockEntity {
 
         // 1. 燃焼中ならエネルギー生成
         if (be.burnTimeRemaining > 0) {
-            int generated = ENERGY_PER_TICK;
-            // バッファに空きがある分だけ受入。あふれる分はロスではなく燃焼を遅らせる方針（メンテフリー思想）
-            int accepted = be.energyStorage.receiveEnergy(generated, false);
+            // バッファに空きがある分だけ発電。あふれる分はロスではなく燃焼を遅らせる方針（メンテフリー思想）
+            int accepted = be.energyStorage.generate(ENERGY_PER_TICK);
             if (accepted > 0) {
                 be.burnTimeRemaining--;
                 be.setChanged();
@@ -181,7 +199,7 @@ public class CombustionCellBlockEntity extends BlockEntity {
     public void load(CompoundTag tag) {
         super.load(tag);
         if (tag.contains("Fuel")) fuelInventory.deserializeNBT(tag.getCompound("Fuel"));
-        if (tag.contains("Energy")) energyStorage.receiveEnergy(tag.getInt("Energy"), false);
+        if (tag.contains("Energy")) energyStorage.setEnergy(tag.getInt("Energy"));
         burnTimeRemaining = tag.getInt("BurnTime");
         currentItemBurnTime = tag.getInt("CurrentBurn");
     }

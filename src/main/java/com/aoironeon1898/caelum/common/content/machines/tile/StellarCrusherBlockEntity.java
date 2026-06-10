@@ -35,7 +35,7 @@ public class StellarCrusherBlockEntity extends BlockEntity implements MenuProvid
     // 定数定義
     private static final int MACHINE_TIER = 1;
     private static final int ENERGY_CAPACITY = 60000;
-    private static final int ENERGY_TRANSFER = 200;
+    private static final int ENERGY_TRANSFER = 800; // 受電上限。導線(800)から初動を速く埋める
     private static final int ENERGY_PER_TICK = 40;
 
     // スロット管理 (0: 入力, 1: 出力)
@@ -241,7 +241,8 @@ public class StellarCrusherBlockEntity extends BlockEntity implements MenuProvid
     // カスタムエネルギー用クラス
     public static class ModEnergyStorage extends EnergyStorage {
         public ModEnergyStorage(int capacity, int maxTransfer) {
-            super(capacity, maxTransfer, maxTransfer, 0);
+            // 受電のみ許可(maxExtract=0)。機械は電力を消費するだけで導線に吸い戻されない
+            super(capacity, maxTransfer, 0, 0);
         }
         public void setEnergy(int energy) { this.energy = energy; }
         @Override

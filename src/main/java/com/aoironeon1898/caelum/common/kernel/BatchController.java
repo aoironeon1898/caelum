@@ -23,10 +23,10 @@ import java.util.concurrent.ConcurrentHashMap;
 public class BatchController {
     private static final Map<ResourceKey<Level>, Set<BlockPos>> DIMENSIONAL_PIPES = new ConcurrentHashMap<>();
 
-    // 転送レート（Tier制への布石）
-    private static final int TRANSFER_RATE = 4;
-    // 処理が空振りしたときのクールダウン時間 (tick)
-    private static final int SLEEP_TICKS = 20; // 1秒
+    // 転送レート（Tier制への布石）。4は遅すぎたため16に引き上げ（64個スタックを4tick=0.2秒で移送）
+    private static final int TRANSFER_RATE = 16;
+    // 処理が空振りしたときのクールダウン時間 (tick)。短くして搬入直後の反応遅延を抑える
+    private static final int SLEEP_TICKS = 10; // 0.5秒
 
     public static void register(BlockEntity pipe, Level level, BlockPos pos) {
         if (level.isClientSide) return;
