@@ -2,11 +2,12 @@ package com.aoironeon1898.caelum.common.registries;
 
 import com.aoironeon1898.caelum.Caelum;
 // マシンのインポートパスはご提示のファイルに合わせました
+import com.aoironeon1898.caelum.common.content.machines.tile.CombustionCellBlockEntity;
 import com.aoironeon1898.caelum.common.content.machines.tile.StellarCrusherBlockEntity;
 import com.aoironeon1898.caelum.common.content.machines.tile.StellarFurnaceBlockEntity;
 import com.aoironeon1898.caelum.common.content.machines.tile.StellarSynthesizerBlockEntity;
-// パイプのインポート (tileパッケージ)
 import com.aoironeon1898.caelum.common.content.logistics.tile.CompositePipeBlockEntity;
+import com.aoironeon1898.caelum.common.content.logistics.tile.EnergyConduitBlockEntity;
 
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -38,16 +39,24 @@ public class ModBlockEntities {
                     () -> BlockEntityType.Builder.of(StellarCrusherBlockEntity::new,
                             ModBlocks.STELLAR_CRUSHER.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<CombustionCellBlockEntity>> COMBUSTION_CELL_BE =
+            BLOCK_ENTITIES.register("combustion_cell_be",
+                    () -> BlockEntityType.Builder.of(CombustionCellBlockEntity::new,
+                            ModBlocks.COMBUSTION_CELL.get()).build(null));
+
     // =================================================================
     // Section: Logistics (物流システム)
     // =================================================================
 
-    // ★修正: 変数名を COMPOSITE_PIPE_BE から COMPOSITE_PIPE に変更
-    // (CompositePipeBlockEntity.java のコンストラクタが呼んでいる名前と一致させる)
     public static final RegistryObject<BlockEntityType<CompositePipeBlockEntity>> COMPOSITE_PIPE =
             BLOCK_ENTITIES.register("composite_pipe",
                     () -> BlockEntityType.Builder.of(CompositePipeBlockEntity::new,
                             ModBlocks.COMPOSITE_PIPE.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<EnergyConduitBlockEntity>> ENERGY_CONDUIT_BE =
+            BLOCK_ENTITIES.register("energy_conduit_be",
+                    () -> BlockEntityType.Builder.of(EnergyConduitBlockEntity::new,
+                            ModBlocks.ENERGY_CONDUIT.get()).build(null));
 
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITIES.register(eventBus);

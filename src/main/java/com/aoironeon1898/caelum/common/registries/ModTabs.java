@@ -32,9 +32,11 @@ public class ModTabs {
                         pOutput.accept(ModBlocks.STELLAR_FURNACE.get());
                         pOutput.accept(ModBlocks.STELLAR_CRUSHER.get());
                         pOutput.accept(ModBlocks.STELLAR_SYNTHESIZER.get());
+                        pOutput.accept(ModBlocks.COMBUSTION_CELL.get());
 
                         // 4. Logistics (物流)
                         pOutput.accept(ModBlocks.COMPOSITE_PIPE.get());
+                        pOutput.accept(ModBlocks.ENERGY_CONDUIT.get());
 
                         //5. tools
                         pOutput.accept(ModItems.CAELUM_WRENCH.get());

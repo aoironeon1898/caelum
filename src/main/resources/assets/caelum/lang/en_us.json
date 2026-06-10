@@ -2,5 +2,15 @@
   "item.caelum.astral_ingot": "Astral Ingot",
   "item.caelum.astral_dust": "Astral Dust",
   "item.caelum.logic_chip": "Logic Chip",
+  "item.caelum.raw_astral_ore": "Raw Astral Ore",
+  "item.caelum.caelum_wrench": "Caelum Wrench",
+  "block.caelum.astral_ore": "Astral Ore",
+  "block.caelum.deepslate_astral_ore": "Deepslate Astral Ore",
+  "block.caelum.stellar_furnace": "Stellar Furnace",
+  "block.caelum.stellar_synthesizer": "Stellar Synthesizer",
+  "block.caelum.stellar_crusher": "Stellar Crusher",
+  "block.caelum.combustion_cell": "Combustion Cell",
+  "block.caelum.composite_pipe": "Composite Pipe",
+  "block.caelum.energy_conduit": "Energy Conduit",
   "creativetab.caelum_tab": "Caelum Industry"
 }

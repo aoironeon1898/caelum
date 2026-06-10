@@ -1,10 +1,12 @@
 package com.aoironeon1898.caelum.common.registries;
 
 import com.aoironeon1898.caelum.Caelum;
+import com.aoironeon1898.caelum.common.content.machines.blocks.CombustionCellBlock;
 import com.aoironeon1898.caelum.common.content.machines.blocks.StellarCrusherBlock;
 import com.aoironeon1898.caelum.common.content.machines.blocks.StellarFurnaceBlock;
 import com.aoironeon1898.caelum.common.content.machines.blocks.StellarSynthesizerBlock;
-import com.aoironeon1898.caelum.common.content.logistics.blocks.CompositePipeBlock; // ★追加
+import com.aoironeon1898.caelum.common.content.logistics.blocks.CompositePipeBlock;
+import com.aoironeon1898.caelum.common.content.logistics.blocks.EnergyConduitBlock;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -61,12 +63,25 @@ public class ModBlocks {
                     .strength(3.5f)
                     .noOcclusion()));
 
+    public static final RegistryObject<Block> COMBUSTION_CELL = registerBlock("combustion_cell",
+            () -> new CombustionCellBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.METAL)
+                    .sound(SoundType.METAL)
+                    .strength(3.0f)));
+
     // =================================================================
     // Section: Logistics (物流システム)
     // =================================================================
 
     public static final RegistryObject<Block> COMPOSITE_PIPE = BLOCKS.register("composite_pipe",
             () -> new CompositePipeBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion()));
+
+    public static final RegistryObject<Block> ENERGY_CONDUIT = registerBlock("energy_conduit",
+            () -> new EnergyConduitBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.METAL)
+                    .sound(SoundType.METAL)
+                    .strength(1.5f)
+                    .noOcclusion()));
 
     // =================================================================
     // Internal Helper Methods
