@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "III",
+    "DCD",
+    "III"
+  ],
+  "key": {
+    "I": { "item": "minecraft:iron_ingot" },
+    "D": { "item": "caelum:astral_dust" },
+    "C": { "item": "minecraft:coal_block" }
+  },
+  "result": {
+    "item": "caelum:combustion_cell",
+    "count": 1
+  }
+}

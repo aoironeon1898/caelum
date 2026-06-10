@@ -97,10 +97,6 @@ public class StellarSynthesizerBlockEntity extends BlockEntity implements MenuPr
             return;
         }
 
-        // ★★★ DEBUG: Constantly refill energy to max ★★★
-        pEntity.energyStorage.setEnergy(pEntity.energyStorage.getMaxEnergyStored());
-        // ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
-
         // 1. Get Recipe
         Optional<StellarInfuserRecipe> recipe = getCurrentRecipe(pEntity);
 

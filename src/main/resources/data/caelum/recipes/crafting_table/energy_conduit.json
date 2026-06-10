@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CIC"
+  ],
+  "key": {
+    "C": { "item": "minecraft:copper_ingot" },
+    "I": { "item": "caelum:astral_dust" }
+  },
+  "result": {
+    "item": "caelum:energy_conduit",
+    "count": 4
+  }
+}

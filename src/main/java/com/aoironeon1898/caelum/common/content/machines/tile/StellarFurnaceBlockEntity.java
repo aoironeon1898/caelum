@@ -159,10 +159,6 @@ public class StellarFurnaceBlockEntity extends BlockEntity implements MenuProvid
             return;
         }
 
-        // ▼▼▼▼▼▼▼▼▼▼ デバッグ用：常にエネルギー満タン ▼▼▼▼▼▼▼▼▼▼
-        pEntity.energyStorage.setEnergy(pEntity.energyStorage.getMaxEnergyStored());
-        // ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
-
         boolean hasRecipe = hasRecipe(pEntity);
         boolean hasEnergy = pEntity.energyStorage.getEnergyStored() >= ENERGY_PER_TICK;
         boolean isWorking = hasRecipe && hasEnergy;
