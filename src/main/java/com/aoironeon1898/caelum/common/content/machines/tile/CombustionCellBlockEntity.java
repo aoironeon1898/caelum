@@ -1,11 +1,18 @@
 package com.aoironeon1898.caelum.common.content.machines.tile;
 
+import com.aoironeon1898.caelum.common.content.machines.menus.CombustionCellMenu;
 import com.aoironeon1898.caelum.common.registries.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.Containers;
+import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -31,7 +38,7 @@ import org.jetbrains.annotations.Nullable;
  * - 上面から hopper でfuel自動投入可
  * - 隣接の EnergyStorage / EnergyConduit にFE伝達
  */
-public class CombustionCellBlockEntity extends BlockEntity {
+public class CombustionCellBlockEntity extends BlockEntity implements MenuProvider {
 
     // 発電 80 FE/t = 機械2台(40FE)分、またはSynthesizer(60FE)1台＋余剰。
     // 容量10万で複数機械の供給ハブとして機能。出力800で4台同時供給可。
@@ -94,8 +101,45 @@ public class CombustionCellBlockEntity extends BlockEntity {
     private int burnTimeRemaining = 0;
     private int currentItemBurnTime = 0;
 
+    // GUI同期用：0=現在FE, 1=最大FE, 2=残り燃焼tick, 3=今の燃料の総燃焼tick
+    private final ContainerData data;
+
     public CombustionCellBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.COMBUSTION_CELL_BE.get(), pos, state);
+        this.data = new ContainerData() {
+            @Override
+            public int get(int i) {
+                return switch (i) {
+                    case 0 -> CombustionCellBlockEntity.this.energyStorage.getEnergyStored();
+                    case 1 -> ENERGY_CAPACITY;
+                    case 2 -> CombustionCellBlockEntity.this.burnTimeRemaining;
+                    case 3 -> CombustionCellBlockEntity.this.currentItemBurnTime;
+                    default -> 0;
+                };
+            }
+            @Override
+            public void set(int i, int v) {
+                switch (i) {
+                    case 2 -> CombustionCellBlockEntity.this.burnTimeRemaining = v;
+                    case 3 -> CombustionCellBlockEntity.this.currentItemBurnTime = v;
+                }
+            }
+            @Override
+            public int getCount() { return 4; }
+        };
+    }
+
+    public IItemHandler getFuelInventory() { return fuelInventory; }
+
+    @Override
+    public Component getDisplayName() {
+        return Component.translatable("block.caelum.combustion_cell");
+    }
+
+    @Nullable
+    @Override
+    public AbstractContainerMenu createMenu(int id, Inventory inv, Player player) {
+        return new CombustionCellMenu(id, inv, this, this.data);
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, CombustionCellBlockEntity be) {

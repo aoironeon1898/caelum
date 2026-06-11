@@ -16,6 +16,8 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -37,21 +39,13 @@ public class CombustionCellBlock extends BaseEntityBlock {
 
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        if (level.isClientSide) return InteractionResult.SUCCESS;
-        BlockEntity be = level.getBlockEntity(pos);
-        if (!(be instanceof CombustionCellBlockEntity cell)) return InteractionResult.PASS;
-
-        ItemStack held = player.getItemInHand(hand);
-        if (!held.isEmpty() && cell.tryInsertFuel(held)) {
-            return InteractionResult.CONSUME;
+        if (!level.isClientSide) {
+            BlockEntity be = level.getBlockEntity(pos);
+            if (be instanceof CombustionCellBlockEntity cell) {
+                NetworkHooks.openScreen((ServerPlayer) player, cell, pos);
+            }
         }
-
-        // ステータス表示
-        String status = String.format("§7[Combustion Cell] §fEnergy: §e%d§7/§e%d §8| §f%s",
-                cell.getEnergyStored(), cell.getEnergyCapacity(),
-                cell.isBurning() ? "§a燃焼中" : "§c停止");
-        player.displayClientMessage(Component.literal(status), true);
-        return InteractionResult.CONSUME;
+        return InteractionResult.sidedSuccess(level.isClientSide());
     }
 
     @Override

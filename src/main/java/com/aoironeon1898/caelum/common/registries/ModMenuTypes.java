@@ -2,6 +2,7 @@ package com.aoironeon1898.caelum.common.registries;
 
 import com.aoironeon1898.caelum.Caelum;
 import com.aoironeon1898.caelum.common.content.logistics.menu.PipeConfigMenu;
+import com.aoironeon1898.caelum.common.content.machines.menus.CombustionCellMenu;
 import com.aoironeon1898.caelum.common.content.machines.menus.StellarCrusherMenu;
 import com.aoironeon1898.caelum.common.content.machines.menus.StellarFurnaceMenu;
 import com.aoironeon1898.caelum.common.content.machines.menus.StellarSynthesizerMenu;
@@ -32,6 +33,9 @@ public class ModMenuTypes {
 
     public static final RegistryObject<MenuType<PipeConfigMenu>> PIPE_CONFIG_MENU =
             MENUS.register("pipe_config_menu", () -> IForgeMenuType.create(PipeConfigMenu::new));
+
+    public static final RegistryObject<MenuType<CombustionCellMenu>> COMBUSTION_CELL_MENU =
+            MENUS.register("combustion_cell_menu", () -> IForgeMenuType.create(CombustionCellMenu::new));
 
 
     public static void register(IEventBus eventBus) {

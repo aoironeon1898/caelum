@@ -4,6 +4,7 @@ import com.aoironeon1898.caelum.Caelum;
 import com.aoironeon1898.caelum.client.screens.machines.StellarFurnaceScreen;
 import com.aoironeon1898.caelum.client.screens.machines.StellarCrusherScreen;
 import com.aoironeon1898.caelum.client.screens.machines.StellarSynthesizerScreen;
+import com.aoironeon1898.caelum.client.screens.machines.CombustionCellScreen;
 import com.aoironeon1898.caelum.client.transport.PipeConfigScreen;
 import com.aoironeon1898.caelum.common.registries.ModMenuTypes;
 import net.minecraft.client.gui.screens.MenuScreens;
@@ -25,6 +26,7 @@ public class ClientModEvents {
             MenuScreens.register(ModMenuTypes.STELLAR_SYNTHESIZER_MENU.get(), StellarSynthesizerScreen::new);
             MenuScreens.register(ModMenuTypes.STELLAR_CRUSHER_MENU.get(), StellarCrusherScreen::new);
             MenuScreens.register(ModMenuTypes.PIPE_CONFIG_MENU.get(), PipeConfigScreen::new);
+            MenuScreens.register(ModMenuTypes.COMBUSTION_CELL_MENU.get(), CombustionCellScreen::new);
         });
     }
 }
